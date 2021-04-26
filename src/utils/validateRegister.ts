@@ -1,4 +1,4 @@
-import { UsernamePasswordinput } from "../Fields/Fields"
+import { UsernamePasswordinput } from "./Fields"
 
 export const validateRegister = (options : UsernamePasswordinput) => {
     if(!options.email.includes('@')){

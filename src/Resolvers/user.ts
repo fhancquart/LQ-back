@@ -3,7 +3,7 @@ import { MyContext } from "../types";
 import { Resolver, Query, Arg, Ctx, Mutation } from "type-graphql";
 import argon2 from 'argon2';
 import { validateRegister } from "../utils/validateRegister";
-import { UsernamePasswordinput, UserResponse } from "../Fields/Fields"
+import { UsernamePasswordinput, UserResponse } from "../utils/Fields"
 import { getConnection } from "typeorm";
 import { COOKIE_NAME } from "../constant";
 
