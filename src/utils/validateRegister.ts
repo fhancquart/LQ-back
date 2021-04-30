@@ -1,4 +1,4 @@
-import {UsernamePasswordinput} from '../resolvers/UsernamePasswordInput'
+import {UsernamePasswordinput} from '../utils/fields'
 
 
 export const validateRegister = (options : UsernamePasswordinput) => {
@@ -31,3 +31,4 @@ export const validateRegister = (options : UsernamePasswordinput) => {
         }
 
         return null;
+}
