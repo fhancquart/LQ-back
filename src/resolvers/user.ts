@@ -39,7 +39,7 @@ export class UserResolver {
         let user;
 
         try{ 
-            const result = await getConnection().createQueryBuilder().insert().into(User).values( 
+            await getConnection().createQueryBuilder().insert().into(User).values( 
                 {
                     username: options.username, 
                     email: options.email,
@@ -47,7 +47,11 @@ export class UserResolver {
                 }
             ).execute();
 
-            user = result.raw[0];
+            let find = await User.findOne({
+                where: {email: options.email}
+            });
+
+            user = find as any;
         } catch(err){
             //console.log("--------",err)
             if(err.sqlMessage.includes("Duplicata")){
@@ -63,6 +67,7 @@ export class UserResolver {
         }
 
         req.session.userId = user.id; 
+
 
         return {user};
     }
@@ -106,7 +111,6 @@ export class UserResolver {
 
         return {user};
     }
-
 
     @Mutation(() => Boolean) 
     async logout(
