@@ -1,4 +1,4 @@
-import {UsernamePasswordinput} from '../utils/fields'
+import {UsernamePasswordinput} from './userFields'
 
 
 export const validateRegister = (options : UsernamePasswordinput) => {

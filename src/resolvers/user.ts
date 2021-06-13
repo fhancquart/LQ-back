@@ -5,7 +5,7 @@ import { COOKIE_NAME } from "../constant";
 /*Entities*/
 import { User } from "../entities/User";
 /*Fields*/
-import { UsernamePasswordinput, UserResponse } from "../utils/fields"
+import { UsernamePasswordinput, UserResponse } from "../utils/userFields"
 /*Context*/
 import { MyContext } from "../types";
 /*Verif*/

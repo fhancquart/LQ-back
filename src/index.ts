@@ -18,9 +18,12 @@ import connectRedis from 'connect-redis';
 import {COOKIE_NAME, _prod_} from './constant';
 /*Entities*/
 import { User } from "./entities/User";
+import { Cards_category } from "./entities/cards/Cards_category";
+/*Loader*/
 import { createUserLoader } from "./utils/createUserLoader";
 /*Resolver*/
 import { UserResolver } from "./resolvers/user";
+import { Cards_categoryResolver } from "./resolvers/cards";
 
 const index = async () => {
 
@@ -32,7 +35,7 @@ const index = async () => {
         logging: true,
         synchronize: true,
         migrations: [path.join(__dirname, './migrations/*')],
-        entities: [User]
+        entities: [User, Cards_category]
     });
     await conn.runMigrations(); 
 
@@ -67,7 +70,7 @@ const index = async () => {
 
     const apolloServer = new ApolloServer({ 
         schema: await buildSchema({ 
-            resolvers: [UserResolver],
+            resolvers: [UserResolver, Cards_categoryResolver],
             validate: false
         }),
         context: ({req, res}) => ({
