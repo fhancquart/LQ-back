@@ -1,6 +1,14 @@
 import {ObjectType, Field} from 'type-graphql';
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm"
 
+@ObjectType()
+export class CardsError{
+    @Field()
+    field: string;
+    @Field()
+    message: string;
+}
+
 
 @ObjectType()
 @Entity() 
@@ -12,14 +20,26 @@ export class Cards_category extends BaseEntity{
 
   @Field()
   @Column()
-  cd_userid: number;
+  cd_userid!: number;
 
   @Field()
-  @Column({unique: true}) 
+  @Column() 
   cd_name!: string;
 
   @Field()
-  @Column({unique: true})
+  @Column()
   cd_link!: string;
 
+  @Field()
+  @Column() 
+  cd_resume!: string;
+
+}
+
+@ObjectType()
+export class Cards_categoryResponse{
+    @Field(() => [CardsError], {nullable: true}) //erreur ou null
+    errors?: CardsError[];
+    @Field(() => Cards_category, {nullable: true})
+    cards?: Cards_category;
 }
