@@ -24,6 +24,7 @@ import { createUserLoader } from "./utils/createUserLoader";
 /*Resolver*/
 import { UserResolver } from "./resolvers/user";
 import { Cards_categoryResolver } from "./resolvers/cards";
+import { Cards_family } from "./entities/cards/Cards_family";
 
 const index = async () => {
 
@@ -35,7 +36,7 @@ const index = async () => {
         logging: true,
         synchronize: true,
         migrations: [path.join(__dirname, './migrations/*')],
-        entities: [User, Cards_category]
+        entities: [User, Cards_category, Cards_family]
     });
     await conn.runMigrations(); 
 
