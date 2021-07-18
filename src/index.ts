@@ -1,4 +1,5 @@
 import "reflect-metadata"; 
+import "dotenv-safe/config"
 //Node
 import cors from 'cors';
 import path from "path";
@@ -32,7 +33,8 @@ const index = async () => {
         type: 'mysql',
         database: 'LQ',
         username: 'root',
-        password: '',
+        password: 'root',
+        // url: process.env.DATABASE_URL,
         logging: true,
         synchronize: true,
         migrations: [path.join(__dirname, './migrations/*')],
@@ -43,10 +45,10 @@ const index = async () => {
     const app = express();
 
     const RedisStore = connectRedis(session)
-    const redis = new Redis("127.0.0.1:6379");    
+    const redis = new Redis(process.env.REDIS_URL);    
 
     app.use(cors({
-        origin: "http://localhost:3005",
+        origin: process.env.CORS_ORIGIN,
         credentials: true
     }))    
 
@@ -61,9 +63,10 @@ const index = async () => {
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
                 httpOnly: true,
                 secure: _prod_,
-                sameSite: 'lax'
+                sameSite: 'lax',
+                domain: _prod_ ? ".learnerquiz.com" : undefined
             },
-            secret: "zaeposdfjhop",
+            secret: process.env.SESSION_SECRET,
             saveUninitialized: false,
             resave: false,
         })
@@ -87,7 +90,7 @@ const index = async () => {
         cors: false
     });
 
-    app.listen(4000, () => {
+    app.listen(parseInt(process.env.PORT), () => {
         console.log("Serveur actif sur :4000")
     })
 
