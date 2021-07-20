@@ -16,7 +16,6 @@ import { MyContext } from "../types";
 /*Middleware*/
 import { isAuth } from "../middleware/isAuth";
 import { getConnection } from "typeorm";
-import { Cards_family } from "../entities/cards/Cards_family";
 
 @InputType()
 class categoryFields {
@@ -28,15 +27,7 @@ class categoryFields {
   cd_resume: string;
 }
 
-@InputType()
-class familyFields {
-  @Field()
-  cf_category: number;
-  @Field()
-  cf_name: string;
-  @Field()
-  cf_color: string;
-}
+
 
 @ObjectType()
 class allPack {
@@ -125,15 +116,5 @@ export class Cards_categoryResolver {
         `);
     return { pack: allPack };
   }
-
-  @Mutation(() => Cards_family)
-  @UseMiddleware(isAuth)
-  async family(
-    // @Root() categoryId: Cards_category,
-    @Arg("options") options: familyFields
-  ): Promise<Cards_family> {
-    return Cards_family.create({
-      ...options
-    }).save();
-  }
 }
+

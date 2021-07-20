@@ -27,6 +27,10 @@ export class Cards_family extends BaseEntity{
 
   @Field()
   @Column() 
+  cf_number!: number;
+
+  @Field()
+  @Column() 
   cf_name!: string;
 
   @Field()
