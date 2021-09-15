@@ -16,6 +16,7 @@ import { MyContext } from "../types";
 /*Middleware*/
 import { isAuth } from "../middleware/isAuth";
 import { getConnection } from "typeorm";
+import { Cards_game } from "../entities/cards/Cards_game";
 
 @InputType()
 class categoryFields {
@@ -27,7 +28,19 @@ class categoryFields {
   cd_resume: string;
 }
 
-
+@InputType()
+class categoryGameFields {
+  @Field()
+  cg_category: number;
+  @Field()
+  cg_family: number;
+  @Field()
+  cg_number: number;
+  @Field()
+  cg_question: string;
+  @Field()
+  cg_reponse: string;
+}
 
 @ObjectType()
 class allPack {
@@ -117,5 +130,16 @@ export class Cards_categoryResolver {
         `);
     return { pack: allPack };
   }
+
+  @Mutation(() => Cards_game)
+  @UseMiddleware(isAuth)
+  async game(
+    @Arg("options") options: categoryGameFields,
+  ): Promise<Cards_game> {
+    return Cards_game.create({
+      ...options
+    }).save();
+  }
+  
 }
 
