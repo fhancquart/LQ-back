@@ -107,12 +107,13 @@ export class Cards_categoryResolver {
   }
 
   @Query(() => allPack)
-  @UseMiddleware(isAuth)
+  // @UseMiddleware(isAuth)
   async getAllPack(@Ctx() { req }: MyContext): Promise<allPack> {
+    const userId = req.session.userId ? req.session.userId : 0;
     const allPack = await getConnection().query(`
             select *
             from cards_category
-            where cd_userid = ${req.session.userId}
+            where cd_userid = ${userId}
         `);
     return { pack: allPack };
   }
