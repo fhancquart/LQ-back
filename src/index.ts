@@ -27,6 +27,7 @@ import { UserResolver } from "./resolvers/user";
 import { Cards_categoryResolver } from "./resolvers/cards";
 import { Cards_family } from "./entities/cards/Cards_family";
 import { Cards_familyResolver } from "./resolvers/cardsFamily";
+import { Cards_gameResolver } from "./resolvers/cardsGame";
 import { Cards_game } from "./entities/cards/Cards_game";
 
 const index = async () => {
@@ -76,7 +77,7 @@ const index = async () => {
 
     const apolloServer = new ApolloServer({ 
         schema: await buildSchema({ 
-            resolvers: [UserResolver, Cards_categoryResolver, Cards_familyResolver],
+            resolvers: [UserResolver, Cards_categoryResolver, Cards_familyResolver, Cards_gameResolver],
             validate: false
         }),
         context: ({req, res}) => ({

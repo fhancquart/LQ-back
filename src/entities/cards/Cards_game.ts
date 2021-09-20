@@ -19,23 +19,23 @@ export class Cards_game extends BaseEntity{
   cg_id!: number;  
 
   @Field()
-  @Column()
+  @Column({default: null})
   cg_category!: number;
 
   @Field()
-  @Column() 
+  @Column({default: null}) 
   cg_family!: number;
 
   @Field()
-  @Column()
+  @Column({default: null})
   cg_number!: number;
 
   @Field()
-  @Column() 
+  @Column({default: null}) 
   cg_question!: string;
 
   @Field()
-  @Column() 
+  @Column({default: null}) 
   cg_reponse!: string;
 }
 

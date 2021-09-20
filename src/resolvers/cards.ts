@@ -2,12 +2,9 @@ import {
   Resolver,
   Arg,
   Mutation,
-  InputType,
-  Field,
   Ctx,
   UseMiddleware,
-  Query,
-  ObjectType,
+  Query
 } from "type-graphql";
 /*Entities*/
 import { Cards_category } from "../entities/cards/Cards_category";
@@ -16,46 +13,13 @@ import { MyContext } from "../types";
 /*Middleware*/
 import { isAuth } from "../middleware/isAuth";
 import { getConnection } from "typeorm";
-import { Cards_game } from "../entities/cards/Cards_game";
+import { categoryFields, FieldName, allPack } from "../utils/cardsField";
 
-@InputType()
-class categoryFields {
-  @Field()
-  cd_name: string;
-  @Field()
-  cd_link: string;
-  @Field()
-  cd_resume: string;
-}
 
-@InputType()
-class categoryGameFields {
-  @Field()
-  cg_category: number;
-  @Field()
-  cg_family: number;
-  @Field()
-  cg_number: number;
-  @Field()
-  cg_question: string;
-  @Field()
-  cg_reponse: string;
-}
-
-@ObjectType()
-class allPack {
-  @Field(() => [Cards_category])
-  pack: Cards_category[];
-}
-
-@ObjectType()
-export class FieldName {
-  @Field()
-  message: string;
-}
 
 @Resolver(Cards_category)
 export class Cards_categoryResolver {
+  
   @Mutation(() => Cards_category)
   @UseMiddleware(isAuth)
   async category(
@@ -131,15 +95,5 @@ export class Cards_categoryResolver {
     return { pack: allPack };
   }
 
-  @Mutation(() => Cards_game)
-  @UseMiddleware(isAuth)
-  async game(
-    @Arg("options") options: categoryGameFields,
-  ): Promise<Cards_game> {
-    return Cards_game.create({
-      ...options
-    }).save();
-  }
-  
 }
 

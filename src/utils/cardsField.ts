@@ -1,5 +1,4 @@
 import { Cards_category } from "../entities/cards/Cards_category";
-import { Cards_game } from "../entities/cards/Cards_game";
 import { Field, ObjectType, InputType } from "type-graphql";
 
 @InputType()
@@ -12,6 +11,20 @@ export class categoryFields {
   cd_resume: string;
 }
 
+@InputType()
+export class categoryGameFields {
+  @Field()
+  cg_category: number;
+  @Field()
+  cg_family: number;
+  @Field()
+  cg_number: number;
+  @Field()
+  cg_question: string;
+  @Field()
+  cg_reponse: string;
+}
+
 @ObjectType()
 export class allPack {
   @Field(() => [Cards_category])
@@ -19,13 +32,19 @@ export class allPack {
 }
 
 @ObjectType()
-export class game {
-  @Field(() => [Cards_game])
-  game: Cards_game[];
-}
-
-@ObjectType()
 export class FieldName {
   @Field()
   message: string;
+}
+
+@InputType()
+export class familyFields {
+  @Field()
+  cf_category: number;
+  @Field()
+  cf_number: number;
+  @Field()
+  cf_name: string;
+  @Field()
+  cf_color: string;
 }

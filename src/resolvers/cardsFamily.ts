@@ -1,24 +1,15 @@
 import { Resolver } from "type-graphql";
 import { Cards_family } from "../entities/cards/Cards_family";
 import { isAuth } from "../middleware/isAuth";
-import { Mutation, UseMiddleware, Arg, Field, InputType } from "type-graphql";
+import { Mutation, UseMiddleware, Arg } from "type-graphql";
 import { getConnection } from "typeorm";
-import { FieldName } from "./cards";
+import { familyFields, FieldName } from "../utils/cardsField";
 
-@InputType()
-class familyFields {
-  @Field()
-  cf_category: number;
-  @Field()
-  cf_number: number;
-  @Field()
-  cf_name: string;
-  @Field()
-  cf_color: string;
-}
+
 
 @Resolver(Cards_family)
 export class Cards_familyResolver {
+
     @Mutation(() => Cards_family)
     @UseMiddleware(isAuth)
     async family(
@@ -70,4 +61,5 @@ export class Cards_familyResolver {
         .execute();
       return result.raw[0];
     }
+    
 }
