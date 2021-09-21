@@ -37,5 +37,47 @@ export class Cards_gameResolver {
         };
       }
     }
+
+    @Mutation(() => FieldName, { nullable: true })
+    @UseMiddleware(isAuth)
+    async isGameExist(
+      @Arg("cg_category") cg_category: number
+    ): Promise<FieldName> {
+      const response = await Cards_game.findOne({
+        where: { cg_category },
+      });
+  
+      if (response) {
+        return {
+          message: "existe",
+        };
+      } else {
+        return {
+          message: "inexistant",
+        };
+      }
+    }
+
+    @Mutation(() => Cards_game, { nullable: true })
+    @UseMiddleware(isAuth)
+    async updateGame(
+      @Arg("cg_category") cg_category: number,
+      @Arg("cg_family") cg_family: number,
+      @Arg("cg_number") cg_number: number,
+      @Arg("cg_question") cg_question: string,
+      @Arg("cg_reponse") cg_reponse: string
+    ): Promise<Cards_game | null> {
+      const result = await getConnection()
+        .createQueryBuilder()
+        .update(Cards_game)
+        .set({ cg_question, cg_reponse })
+        .where("cg_category = :cg_category and cg_family = :cg_family and cg_number = :cg_number", {
+          cg_category,
+          cg_family,
+          cg_number
+        })
+        .execute();
+      return result.raw[0];
+    }
     
 }
