@@ -29,6 +29,9 @@ import { Cards_family } from "./entities/cards/Cards_family";
 import { Cards_familyResolver } from "./resolvers/cardsFamily";
 import { Cards_gameResolver } from "./resolvers/cardsGame";
 import { Cards_game } from "./entities/cards/Cards_game";
+import { Cards_image } from "./entities/cards/Cards_image";
+import { Cards_tags } from "./entities/cards/Cards_tags";
+import { Cards_imageResolver } from "./resolvers/cardsImages";
 
 const index = async () => {
 
@@ -41,7 +44,7 @@ const index = async () => {
         logging: true,
         synchronize: true,
         migrations: [path.join(__dirname, './migrations/*')],
-        entities: [User, Cards_category, Cards_family, Cards_game]
+        entities: [User, Cards_category, Cards_family, Cards_game, Cards_image, Cards_tags]
     });
     await conn.runMigrations(); 
 
@@ -77,7 +80,7 @@ const index = async () => {
 
     const apolloServer = new ApolloServer({ 
         schema: await buildSchema({ 
-            resolvers: [UserResolver, Cards_categoryResolver, Cards_familyResolver, Cards_gameResolver],
+            resolvers: [UserResolver, Cards_categoryResolver, Cards_familyResolver, Cards_gameResolver, Cards_imageResolver],
             validate: false
         }),
         context: ({req, res}) => ({

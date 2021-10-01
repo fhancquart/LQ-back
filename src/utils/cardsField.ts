@@ -1,5 +1,7 @@
 import { Cards_category } from "../entities/cards/Cards_category";
 import { Field, ObjectType, InputType } from "type-graphql";
+import { Cards_image } from "../entities/cards/Cards_image";
+import { Cards_tags } from "../entities/cards/Cards_tags";
 
 @InputType()
 export class categoryFields {
@@ -29,6 +31,18 @@ export class categoryGameFields {
 export class allPack {
   @Field(() => [Cards_category])
   pack: Cards_category[];
+}
+
+@ObjectType()
+export class allImages {
+  @Field(() => [Cards_image])
+  images: Cards_image[];
+}
+
+@ObjectType()
+export class allTags {
+  @Field(() => [Cards_tags])
+  tags: Cards_tags[];
 }
 
 @ObjectType()
