@@ -35,8 +35,4 @@ export class Cards_image extends BaseEntity{
     @Column() 
     img_tag2!: number;
 
-    @Field()
-    @Column() 
-    img_tag3!: number;
-
 }
