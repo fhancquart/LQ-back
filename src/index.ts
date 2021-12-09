@@ -53,10 +53,14 @@ const index = async () => {
     const redis = new Redis(process.env.REDIS_URL);    
     app.set("proxy", 1); 
 
-    app.use(cors({
-        origin: "https://lq-client.vercel.app/", //pb ici
-        credentials: true
-    }))    
+    const allowedOrigins = ['https://lq-client.vercel.app/', 'http://localhost:3005'];
+
+    const options: cors.CorsOptions = {
+      origin: allowedOrigins,
+      credentials: true
+    };
+
+    app.use(cors(options));
 
     app.use(
         session({ //Redis 
@@ -70,7 +74,7 @@ const index = async () => {
                 httpOnly: true,
                 secure: _prod_,
                 sameSite: 'lax',
-                domain: _prod_ ? ".learnerquiz.com" : undefined
+                domain: _prod_ ? ".vercel.app" : undefined
             },
             secret: process.env.SESSION_SECRET,
             saveUninitialized: false,
