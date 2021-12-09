@@ -2,7 +2,7 @@ import "reflect-metadata";
 import "dotenv-safe/config"
 //Node
 import cors from 'cors';
-import path from "path";
+// import path from "path";
 //Express
 import express from 'express';
 import session from 'express-session';
@@ -39,11 +39,13 @@ const index = async () => {
         type: 'mysql',
         url: process.env.DATABASE_URL,
         logging: true,
-        // synchronize: true, //pas en production
-        migrations: [path.join(__dirname, './migrations/*')],
+        //synchronize: true, //pas en production
+        // migrations: [path.join(__dirname, './migrations/*')],
         entities: [User, Cards_category, Cards_family, Cards_game, Cards_image, Cards_tags]
     });
     await conn.runMigrations(); 
+
+    // console.log(process.env.CORS_ORIGIN)
 
     const app = express();
 
@@ -52,7 +54,7 @@ const index = async () => {
     app.set("proxy", 1); 
 
     app.use(cors({
-        origin: process.env.CORS_ORIGIN,
+        origin: "https://lq-client.vercel.app/", //pb ici
         credentials: true
     }))    
 
