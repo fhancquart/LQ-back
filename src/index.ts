@@ -53,14 +53,10 @@ const index = async () => {
     const redis = new Redis(process.env.REDIS_URL);    
     app.set("proxy", 1); 
 
-    const allowedOrigins = ['https://lq-client.vercel.app/', 'http://localhost:3005'];
-
-    const options: cors.CorsOptions = {
-      origin: allowedOrigins,
-      credentials: true
-    };
-
-    app.use(cors(options));
+    app.use(cors({
+        origin: process.env.CORS_ORIGIN,
+        credentials: true
+    }))   
 
     app.use(
         session({ //Redis 
