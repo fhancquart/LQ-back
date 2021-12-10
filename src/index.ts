@@ -51,12 +51,13 @@ const index = async () => {
 
     const RedisStore = connectRedis(session)
     const redis = new Redis(process.env.REDIS_URL);    
-    app.set("proxy", 1); 
-
-    app.use(cors({
+    app.set("trust proxy", 1);
+    app.use(
+        cors({
         origin: process.env.CORS_ORIGIN,
-        credentials: true
-    }))   
+        credentials: true,
+        })
+    );
 
     app.use(
         session({ //Redis 
@@ -70,7 +71,7 @@ const index = async () => {
                 httpOnly: true,
                 secure: _prod_,
                 sameSite: 'lax',
-                domain: _prod_ ? ".vercel.app" : undefined
+                domain: _prod_ ? ".learnerquiz.info" : undefined
             },
             secret: process.env.SESSION_SECRET,
             saveUninitialized: false,
