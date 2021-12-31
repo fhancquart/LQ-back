@@ -21,6 +21,10 @@ export class Cards_tags extends BaseEntity{
 
     @Field()
     @Column() 
+    tag_num!: number;
+
+    @Field()
+    @Column() 
     tag_name!: string;
 
 }
