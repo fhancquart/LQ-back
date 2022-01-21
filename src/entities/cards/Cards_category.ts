@@ -1,6 +1,5 @@
 import {ObjectType, Field} from 'type-graphql';
-import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm"
-import { Cards_family } from './Cards_family';
+import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm"
 
 @ObjectType()
 export class CardsError{
@@ -35,9 +34,9 @@ export class Cards_category extends BaseEntity{
   @Column() 
   cd_resume!: string;  
 
-  @Field(() => Cards_family) 
-  @ManyToOne(() => Cards_family, family => family.category)
-  family!: Cards_family
+  // @Field(() => Cards_family) 
+  // @ManyToOne(() => Cards_family, family => family.category)
+  // family!: Cards_family
 
 } 
 

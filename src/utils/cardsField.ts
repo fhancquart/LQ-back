@@ -3,6 +3,7 @@ import { Field, ObjectType, InputType } from "type-graphql";
 import { Cards_image } from "../entities/cards/Cards_image";
 import { Cards_tags } from "../entities/cards/Cards_tags";
 import { Cards_family } from "../entities/cards/Cards_family";
+import { Cards_game } from "../entities/cards/Cards_game";
 
 @InputType()
 export class categoryFields {
@@ -40,7 +41,7 @@ export class allImages {
   images: Cards_image[];
 }
 
-@ObjectType()
+@InputType()
 export class allFamily {
   @Field(() => [Cards_family])
   family: Cards_family[];
@@ -48,8 +49,12 @@ export class allFamily {
 
 @ObjectType()
 export class currentGame {
-  @Field(() => Cards_category)
+  @Field(() => [Cards_category])
   category: Cards_category[];
+  @Field(() => [Cards_family])
+  family: Cards_family[];
+  @Field(() => [Cards_game])
+  game: Cards_family[];
 }
 
 @ObjectType()

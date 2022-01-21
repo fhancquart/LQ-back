@@ -3,14 +3,13 @@ import {
     Arg,
     Mutation,
     UseMiddleware,
-    Query,
+    Ctx,
   } from "type-graphql";
 import { isAuth } from "../middleware/isAuth";
 import { categoryGameFields, currentGame, FieldName } from "../utils/cardsField";
 import { getConnection } from "typeorm";
 import { Cards_game } from "../entities/cards/Cards_game";
-import { Cards_family } from "../entities/cards/Cards_family";
-import { Cards_category } from "../entities/cards/Cards_category";
+import { MyContext } from "../types";
 
 
 @Resolver(Cards_game)
@@ -84,27 +83,47 @@ export class Cards_gameResolver {
       return result.raw[0];
     }
 
-    @Query(() => currentGame)
+    // @Query(() => currentGame)
+    // @UseMiddleware(isAuth)
+    // async getCurrentGame(
+    //   @Arg("cd_id") cd_id: number
+    // ): Promise<currentGame | null>  {      
+
+    //   const query = await getConnection().createQueryBuilder(Cards_category, 'c')
+    //   .addSelect('f.cf_color', 'f')
+    //   .innerJoin(Cards_family, 'f', 'c.cd_id = f.cf_category')
+    //   .where(`c.cd_id = ${cd_id}`)
+    //   .getRawMany()
+
+    //   console.log(query)
+
+    //   return {category: query}
+    // }
+
+    @Mutation(() => currentGame, { nullable: true })
     @UseMiddleware(isAuth)
     async getCurrentGame(
-      @Arg("cd_id") cd_id: number
-    ): Promise<currentGame | null>  {      
+      @Arg("cd_id") cd_id: number,
+      @Ctx() { req }: MyContext
+    ): Promise<currentGame | null> {      
 
-      // const query = await getConnection().createQueryBuilder(Cards_category, 'c')
-      // .addSelect('f.cf_color', 'f')
-      // .innerJoin(Cards_family, 'f', 'c.cd_id = f.cf_category')
-      // .where(`c.cd_id = ${cd_id}`)
-      // .getRawMany()
+      let Cards_category = await getConnection().query(`
+          select *
+          from cards_category
+          where cd_id = ${cd_id} and cd_userid = ${req.session.userId}
+      `); 
 
-      const query = await getConnection().query(`
-        select c.*
-        from cards_category c
-        inner join cards_family f on f.cf_category = c.cd_id
-      `)
-
-      console.log(query)
-
-      return {category: query}
+      let Cards_family = await getConnection().query(`
+          select *
+          from cards_family
+          where cf_category = ${cd_id}
+      `); 
+      let Cards_game = await getConnection().query(`
+          select *
+          from cards_game
+          where cg_category = ${cd_id}
+      `);
+      return { category: Cards_category, family: Cards_family, game: Cards_game,} ;
     }
     
 }
