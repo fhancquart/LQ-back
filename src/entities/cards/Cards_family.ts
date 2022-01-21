@@ -1,5 +1,6 @@
 import {ObjectType, Field} from 'type-graphql';
-import {BaseEntity, Column, Entity, PrimaryGeneratedColumn} from "typeorm"
+import {BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm"
+import { Cards_category } from './Cards_category';
 
 @ObjectType()
 export class CardsError{
@@ -21,9 +22,9 @@ export class Cards_family extends BaseEntity{
   @Field()
   @Column()
   cf_category: number;
-  // @ManyToOne(() => Cards_category, (category) => category.cd_id) //liaison avec la table category
-  // @JoinColumn({name: "cf_category"})
-  // categoryId: Cards_category;
+
+  @OneToMany(() => Cards_category, category => category.family)
+  category: Cards_category[];
 
   @Field()
   @Column() 

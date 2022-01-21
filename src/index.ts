@@ -39,8 +39,8 @@ const index = async () => {
         type: 'mysql',
         url: process.env.DATABASE_URL,
         logging: true,
-        //synchronize: true, //pas en production
-        // migrations: [path.join(__dirname, './migrations/*')],
+        synchronize: true, //pas en production
+        //migrations: [path.join(__dirname, './migrations/*')],
         entities: [User, Cards_category, Cards_family, Cards_game, Cards_image, Cards_tags]
     });
     await conn.runMigrations(); 
@@ -56,7 +56,7 @@ const index = async () => {
         cors({
         origin: process.env.CORS_ORIGIN,
         credentials: true,
-        })
+        }) 
     );
 
     app.use(

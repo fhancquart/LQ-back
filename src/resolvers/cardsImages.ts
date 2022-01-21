@@ -9,6 +9,7 @@ import {
 import { getConnection } from "typeorm";
 import { Cards_image } from "../entities/cards/Cards_image";
 import { allImages, allTags } from "../utils/cardsField";
+import { Cards_game } from "../entities/cards/Cards_game";
 
 @Resolver(Cards_image)
 export class Cards_imageResolver {
@@ -57,8 +58,27 @@ export class Cards_imageResolver {
             `);
             return {images: allImages} ;
         }
+    }
 
-
+    @Mutation(() => Cards_game, { nullable: true })
+    @UseMiddleware(isAuth)
+    async updateImage(
+      @Arg("cg_category") cg_category: number,
+      @Arg("cg_family") cg_family: number,
+      @Arg("cg_number") cg_number: number,
+      @Arg("cg_image") cg_image: string
+    ): Promise<Cards_game | null> {
+      const result = await getConnection()
+        .createQueryBuilder()
+        .update(Cards_game)
+        .set({ cg_image })
+        .where("cg_category = :cg_category and cg_family = :cg_family and cg_number = :cg_number", {
+          cg_category,
+          cg_family,
+          cg_number
+        })
+        .execute();
+      return result.raw[0];
     }
 
 
