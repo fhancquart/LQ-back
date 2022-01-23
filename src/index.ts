@@ -39,7 +39,7 @@ const index = async () => {
         type: 'mysql',
         url: process.env.DATABASE_URL,
         logging: true,
-        synchronize: true, //pas en production
+        //synchronize: true, //pas en production
         //migrations: [path.join(__dirname, './migrations/*')],
         entities: [User, Cards_category, Cards_family, Cards_game, Cards_image, Cards_tags]
     });
