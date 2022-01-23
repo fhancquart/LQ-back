@@ -1,4 +1,4 @@
-import DataLoader from 'dataloader'
+import DataLoader from 'dataloader';
 import { Cards_category } from '../entities/cards/Cards_category';
 
 //number = [1, 78, 9, 3...]
@@ -11,7 +11,7 @@ export const createUserLoader = () => new DataLoader<number, Cards_category>(asy
         userIdToUser[u.cd_userid] = u;
     });
 
-    
+    // console.log("xxxxxxxxxxx")
 
     return userIds.map((userId) => userIdToUser[userId]);
 });

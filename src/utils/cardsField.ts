@@ -54,7 +54,7 @@ export class currentGame {
   @Field(() => [Cards_family])
   family: Cards_family[];
   @Field(() => [Cards_game])
-  game: Cards_family[];
+  game: Cards_game[];
 }
 
 @ObjectType()

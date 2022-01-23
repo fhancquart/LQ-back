@@ -38,7 +38,7 @@ export class Cards_game extends BaseEntity{
   @Column({default: null}) 
   cg_reponse!: string;
 
-  @Field()
+  @Field({nullable: true})
   @Column({default: null}) 
   cg_image!: string;
 }
