@@ -32,15 +32,16 @@ import { Cards_game } from "./entities/cards/Cards_game";
 import { Cards_image } from "./entities/cards/Cards_image";
 import { Cards_tags } from "./entities/cards/Cards_tags";
 import { Cards_imageResolver } from "./resolvers/cardsImages";
+import path from "path";
 
 const index = async () => {
-
+ 
     const conn = await createConnection({
         type: 'mysql',
         url: process.env.DATABASE_URL,
         logging: true,
         //synchronize: true, //pas en production
-        //migrations: [path.join(__dirname, './migrations/*')],
+        migrations: [path.join(__dirname, './migrations/*')],
         entities: [User, Cards_category, Cards_family, Cards_game, Cards_image, Cards_tags]
     });
     await conn.runMigrations(); 

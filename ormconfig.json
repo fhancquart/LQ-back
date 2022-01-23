@@ -3,7 +3,7 @@
     "host": "localhost",
     "username": "root",
     "password": "root",
-    "database": "lq2",
+    "database": "lq",
     "entities" : ["dist/entities/**/*{.js,.ts}"],
     "migrations" : ["dist/migrations/**/*{.js,.ts}"],
     "debug": true
