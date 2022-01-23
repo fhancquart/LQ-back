@@ -4,9 +4,6 @@ import {
     Mutation,
     UseMiddleware,
     Ctx,
-    Query,
-    FieldResolver,
-    Root,
     // Root,
   } from "type-graphql";
 import { isAuth } from "../middleware/isAuth";
@@ -14,8 +11,6 @@ import { categoryGameFields, currentGame, FieldName } from "../utils/cardsField"
 import { getConnection } from "typeorm";
 import { Cards_game } from "../entities/cards/Cards_game";
 import { MyContext } from "../types";
-import { Cards_category } from "../entities/cards/Cards_category";
-import { Cards_family } from "../entities/cards/Cards_family";
 
 
 @Resolver(Cards_game)
