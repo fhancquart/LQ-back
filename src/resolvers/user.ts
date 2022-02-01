@@ -54,12 +54,12 @@ export class UserResolver {
             user = find as any;
         } catch(err){
             //console.log("--------",err)
-            if(err.sqlMessage.includes("Duplicata")){
+            if(err.sqlMessage.includes("Duplicata") || err.sqlMessage.includes("property 'id'")){
                 return{
                     errors: [
                         {
                             field: "username",
-                            message: "Username déjà existant"
+                            message: "Compte déjà existant"
                         }
                     ]
                 }
