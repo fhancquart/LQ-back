@@ -13,6 +13,8 @@ export class categoryFields {
   cd_link: string;
   @Field()
   cd_resume: string;
+  @Field()
+  cd_count: number;
 }
 
 @InputType()

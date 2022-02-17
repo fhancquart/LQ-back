@@ -39,12 +39,13 @@ export class Cards_categoryResolver {
     @Arg("cd_link") cd_link: string,
     @Arg("cd_resume") cd_resume: string,
     @Arg("cd_id") cd_id: number,
+    @Arg("cd_count") cd_count: number,
     @Ctx() { req }: MyContext
   ): Promise<Cards_category | null> {
     const result = await getConnection()
       .createQueryBuilder()
       .update(Cards_category)
-      .set({ cd_name, cd_link, cd_resume })
+      .set({ cd_name, cd_link, cd_resume, cd_count })
       .where("cd_id = :cd_id and cd_userid = :cd_userid", {
         cd_id,
         cd_userid: req.session.userId,
