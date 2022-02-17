@@ -118,6 +118,7 @@ export class Cards_gameResolver {
           select *
           from cards_family
           where cf_category = ${cd_id}
+          order by cf_number asc
       `); 
       let Cards_game = await getConnection().query(`
           select *
