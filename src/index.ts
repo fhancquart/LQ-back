@@ -32,7 +32,6 @@ import { Cards_game } from "./entities/cards/Cards_game";
 import { Cards_image } from "./entities/cards/Cards_image";
 import { Cards_tags } from "./entities/cards/Cards_tags";
 import { Cards_imageResolver } from "./resolvers/cardsImages";
-import path from "path";
 
 const index = async () => {
  

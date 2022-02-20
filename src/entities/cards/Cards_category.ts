@@ -34,6 +34,10 @@ export class Cards_category extends BaseEntity{
   @Column() 
   cd_resume!: string;  
 
+  @Field()
+  @Column()
+  cd_count!: number;
+
   // @Field(() => Cards_family) 
   // @ManyToOne(() => Cards_family, family => family.category)
   // family!: Cards_family
